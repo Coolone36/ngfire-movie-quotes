@@ -18,6 +18,10 @@ export class AppComponent {
     'movie': '',
   };
   onSubmit(): void {
-    console.log("You wish to submit:", this.movieQuote);
+    console.log("TODO: You wish to submit:", this.movieQuote);
+    this.movieQuote = {
+    'quote': '',
+    'movie': '',
+  };
   }
 }
