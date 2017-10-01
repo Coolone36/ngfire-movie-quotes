@@ -37,15 +37,28 @@ export class AppComponent {
   onSubmit(): void {
     // Local only solution
     // this.movieQuotesStream.unshift(this.formMovieQuote);
-    try { 
-    // Write action into Firebase
-    this.movieQuotesStream.push(this.formMovieQuote);
-    this.formMovieQuote = {
-      'quote': '',
-      'movie': '',
-    };
+    try {
+      if (this.formMovieQuote.$key) {
+        // Update action into Firebase
+        this.movieQuotesStream.update(this.formMovieQuote.$key, this.formMovieQuote);
+      } else {
+        // Write action into Firebase
+        this.movieQuotesStream.push(this.formMovieQuote);
+      }
+      this.formMovieQuote = {
+        'quote': '',
+        'movie': '',
+      };
     } catch (e) {
       console.log("Form error: ", e);
     }
+  }
+  edit(movieQuote: MovieQuote): void {
+    this.formMovieQuote = movieQuote;
+
+  }
+  remove(movieQuoteKey: string): void {
+    // Delete action of Firebase
+    this.movieQuotesStream.remove(movieQuoteKey);
   }
 }
